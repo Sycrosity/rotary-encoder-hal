@@ -3,16 +3,11 @@ use std::cell::RefCell;
 use proptest::prelude::*;
 use rotary_encoder_hal::{Direction, Rotary};
 
-#[cfg(not(feature = "embedded-hal-alpha"))]
-use embedded_hal::digital::v2::InputPin;
-
-#[cfg(feature = "embedded-hal-alpha")]
-use embedded_hal_alpha::digital::blocking::InputPin;
+use embedded_hal::digital::InputPin;
 
 struct FakeInputPin<I>(RefCell<I>);
 
 impl<I: Iterator<Item = u8>> InputPin for FakeInputPin<I> {
-    type Error = ();
 
     fn is_high(&self) -> Result<bool, Self::Error> {
         if let Some(pd) = self.0.borrow_mut().next() {
