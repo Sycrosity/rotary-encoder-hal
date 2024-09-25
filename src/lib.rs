@@ -50,18 +50,6 @@ impl Display for Direction {
     }
 }
 
-impl TryFrom<Direction> for u8 {
-    type Error = ();
-
-    fn try_from(value: Direction) -> Result<Self, Self::Error> {
-        match value {
-            Direction::Clockwise => Ok(0),
-            Direction::CounterClockwise => Ok(1),
-            Direction::None => Ok(2),
-        }
-    }
-}
-
 impl TryFrom<u8> for Direction {
     type Error = ();
 
