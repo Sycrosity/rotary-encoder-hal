@@ -11,6 +11,8 @@
 #![deny(warnings)]
 #![no_std]
 
+use core::fmt::Display;
+
 use either::Either;
 
 use embedded_hal::digital::InputPin;
@@ -36,6 +38,16 @@ pub enum Direction {
     CounterClockwise,
     /// No change
     None,
+}
+
+impl Display for Direction {
+    fn fmt(&self, f: &mut core::fmt::Formatter<'_>) -> core::fmt::Result {
+        match self {
+            Direction::Clockwise => write!(f, "Clockwise"),
+            Direction::CounterClockwise => write!(f, "CounterClockwise"),
+            Direction::None => write!(f, "None"),
+        }
+    }
 }
 
 impl TryFrom<Direction> for u8 {
