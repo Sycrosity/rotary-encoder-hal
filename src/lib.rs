@@ -38,6 +38,31 @@ pub enum Direction {
     None,
 }
 
+impl TryFrom<Direction> for u8 {
+    type Error = ();
+
+    fn try_from(value: Direction) -> Result<Self, Self::Error> {
+        match value {
+            Direction::Clockwise => Ok(0),
+            Direction::CounterClockwise => Ok(1),
+            Direction::None => Ok(2),
+        }
+    }
+}
+
+impl TryFrom<u8> for Direction {
+    type Error = ();
+
+    fn try_from(value: u8) -> Result<Self, Self::Error> {
+        match value {
+            0 => Ok(Direction::Clockwise),
+            1 => Ok(Direction::CounterClockwise),
+            2 => Ok(Direction::None),
+            _ => Err(()),
+        }
+    }
+}
+
 /// Allows customizing which Quadrature Phases should be considered movements
 /// and in which direction or ignored.
 pub trait Phase {
