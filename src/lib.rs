@@ -75,6 +75,16 @@ impl TryFrom<u8> for Direction {
     }
 }
 
+impl From<Direction> for u8 {
+    fn from(value: Direction) -> Self {
+        match value {
+            Direction::Clockwise => 0,
+            Direction::CounterClockwise => 1,
+            Direction::None => 2,
+        }
+    }
+}
+
 /// Allows customizing which Quadrature Phases should be considered movements
 /// and in which direction or ignored.
 pub trait Phase {
